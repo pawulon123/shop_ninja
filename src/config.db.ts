@@ -7,7 +7,7 @@ export default (): TypeOrmModuleOptions => {
     return {
     type: 'mysql',
     host: DB_HOST,
-    port: 3307,
+    port: parseInt(DB_PORT,10),
     username: DB_USER,
     password: DB_PASSWORD,
     database: DB_NAME,
