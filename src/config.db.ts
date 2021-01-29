@@ -11,7 +11,7 @@ export default (): TypeOrmModuleOptions => {
     username: DB_USER,
     password: DB_PASSWORD,
     database: DB_NAME,
-    entities: [],
+    entities: ["dist/**/*.entity{.ts,.js}"],
     synchronize: false,
   }
 }  
