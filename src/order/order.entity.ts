@@ -1,4 +1,4 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('orders')
+// @Entity('orders')
 export class OrderEntity {}
