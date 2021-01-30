@@ -1,4 +1,4 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('role')
+// @Entity('role')
 export class RoleEntity {}
