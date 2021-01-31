@@ -8,6 +8,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports:[
     // TypeOrmModule.forFeature([UserEntity])
   ],
+  exports: [
+    UserService
+  ],
+
   controllers: [UserController],
   providers: [UserService]
 })

@@ -10,6 +10,7 @@ import { OrderModule } from './order/order.module';
 import { ProductModule } from './product/product.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import  configDb  from './config.db';
 
 
@@ -22,8 +23,11 @@ import  configDb  from './config.db';
     ProductModule,
     RoleModule,
     UserModule,
+    AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [
+    AppController
+  ],
   providers: [
     AppService,
   ],
