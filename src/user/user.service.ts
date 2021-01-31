@@ -6,7 +6,6 @@ export type User = {
     username:string;
     password: string;
 }
-
 @Injectable()
 export class UserService {
     private users: User[];
