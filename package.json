@@ -32,6 +32,7 @@
     "class-transformer": "^0.3.2",
     "class-validator": "^0.13.1",
     "mysql2": "^2.2.5",
+    "nestjs-typeorm-paginate": "^2.3.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
