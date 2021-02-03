@@ -1,4 +1,4 @@
-import { Controller, Get, Query, ParseIntPipe, Logger } from '@nestjs/common';
+import { Controller, Get, Query, ParseIntPipe, Logger, ParseArrayPipe } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductDto } from './product-dto';
 import { ProductEntity } from './product.entity';
@@ -20,5 +20,12 @@ export class ProductController {
             route: 'http://localhost:3001/product',
         });
     }
+    @Get('category') //http://localhost:3001/product/category?categories=swords,ninja+stars
+    async getAllWithCategoryies(
+        @Query('categories', ParseArrayPipe) categories: string[]
+    ){
+       return this.productService.withCategories(categories)
+    }
+
 }
 

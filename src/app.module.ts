@@ -11,6 +11,7 @@ import { ProductModule } from './product/product.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
 import  configDb  from './config.db';
 
 
@@ -24,6 +25,7 @@ import  configDb  from './config.db';
     RoleModule,
     UserModule,
     AuthModule,
+    SharedModule,
   ],
   controllers: [
     AppController

@@ -23,7 +23,7 @@ export class ProductEntity {
     
     @ManyToOne(() => Category, category => category.products)
     @JoinColumn({ name: 'category_id' })
-    user: Category;
+    category: Category;
 
 
 }
