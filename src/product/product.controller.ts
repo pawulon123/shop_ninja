@@ -1,15 +1,16 @@
-import { Controller, Get, Query, ParseIntPipe, Logger, ParseArrayPipe } from '@nestjs/common';
+import { Controller, Get, Query, ParseIntPipe, Logger, ParseArrayPipe, Param } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductDto } from './product-dto';
 import { ProductEntity } from './product.entity';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { paramsValid } from './params.valid';
 
 @Controller('product')
 export class ProductController {
     constructor(public readonly productService: ProductService) { }
     
     @Get() //http://localhost:3001/product?page=1&limit=10
-    async index(
+    allPaginate(
         @Query('page', ParseIntPipe) page: number ,
         @Query('limit', ParseIntPipe) limit: number ,
     ): Promise<Pagination<ProductDto>> {
@@ -21,10 +22,14 @@ export class ProductController {
         });
     }
     @Get('category') //http://localhost:3001/product/category?categories=swords,ninja+stars
-    async getAllWithCategoryies(
+    getAllWithCategoryies(
         @Query('categories', ParseArrayPipe) categories: string[]
-    ){
+    ): Promise<ProductDto[]>{
        return this.productService.withCategories(categories)
+    }
+    @Get(':pattern') //http://localhost:3001/product/a [pattern]
+    filterByName(@Param() params: paramsValid): Promise<ProductDto[]>{
+        return this.productService.filterByName(params.pattern);
     }
 
 }

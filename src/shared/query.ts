@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { getConnection } from 'typeorm';
+import { getConnection, Like } from 'typeorm';
 import { CategoryEntity } from '../category/category.entity';
 import { ProductEntity } from '../product/product.entity';
+
 
 @Injectable()
 export class Query {
 
-    async CategoriesWithProduct(categories: string[]) {
+    async CategoriesWithProduct(categories: string[]):Promise<CategoryEntity[]> {
         return await getConnection()
             .getRepository(CategoryEntity)
             .createQueryBuilder("category")
@@ -14,7 +15,7 @@ export class Query {
             .where("category.name IN (:...names)", { names:categories })
             .getMany();
     }
-    async ProductsWithCategory(categories: string[]) {
+    async ProductsWithCategory(categories: string[]):Promise<ProductEntity[]> {
         return await getConnection()
             .getRepository(ProductEntity)
             .createQueryBuilder("product")
@@ -22,6 +23,13 @@ export class Query {
             .where("category.name IN (:...names)", { names:categories})
             .getMany();
 
+    }
+    async filtrBYname(pattern: string):Promise<ProductEntity[]> {
+        return await getConnection()
+            .getRepository(ProductEntity)
+            .createQueryBuilder("product")
+            .where('product.name like :name',{name:`%${pattern}%`})
+            .getMany();
     }
 
 }
