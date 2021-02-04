@@ -25,5 +25,8 @@ export class ProductService {
     async filterByName(pattern:string): Promise<ProductDto[]> {
         return this.query.filtrBYname(pattern)
     }   
+    async findOne(id: number): Promise<ProductDto> {
+        return this.productRepository.findOneOrFail(id);
+    }   
 }
 

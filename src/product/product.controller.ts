@@ -31,5 +31,9 @@ export class ProductController {
     filterByName(@Param() params: ParamsPattern): Promise<ProductDto[]>{
         return this.productService.filterByName(params.pattern);
     }
+    @Get(':id/details') 
+    getOne(@Param('id')id :number):Promise<ProductDto>{
+        return this.productService.findOne(id);
+    }
 }
 
