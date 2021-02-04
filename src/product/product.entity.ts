@@ -25,5 +25,6 @@ export class ProductEntity {
     @JoinColumn({ name: 'category_id' })
     category: Category;
 
-
+    
+    
 }

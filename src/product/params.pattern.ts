@@ -1,5 +1,5 @@
 import {  IsAlphanumeric, Matches } from 'class-validator';
-export class paramsValid{
+export class ParamsPattern{
 
         @IsAlphanumeric()
     pattern: string;

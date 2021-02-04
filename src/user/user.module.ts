@@ -3,6 +3,7 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+// import {  Query } from '../shared/query';
 
 @Module({
   imports:[
@@ -13,6 +14,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   ],
 
   controllers: [UserController],
-  providers: [UserService]
+  providers: [UserService ]
 })
 export class UserModule {}

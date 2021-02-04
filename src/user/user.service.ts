@@ -5,15 +5,18 @@ import { UserEntity } from './user.entity';
 import *  as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 
+
 @Injectable()
 export class UserService {
     constructor(
+      
         @InjectRepository(UserEntity)
-        private userRepository: Repository<UserEntity>,
+        private userRepository: Repository<UserEntity>
     ){
     }
      findOne(mail: string): Promise<UserDto> {
-        return this.userRepository.findOneOrFail({mail});
+        return this.userRepository.findOneOrFail({mail}, { relations: ["role"] });
+        // return this.query.findUser({mail});
     }
     async create(userData: UserDto): Promise<UserDto> {
         const salt = await bcrypt.genSalt(10);

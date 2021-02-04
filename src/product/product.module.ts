@@ -11,6 +11,8 @@ import { Query } from './../shared/query';
 
   ],
   controllers: [ProductController],
-  providers: [ProductService, Query]
+  providers: [
+    ProductService,
+    Query]
 })
 export class ProductModule {}

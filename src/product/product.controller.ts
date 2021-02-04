@@ -3,7 +3,7 @@ import { ProductService } from './product.service';
 import { ProductDto } from './product-dto';
 import { ProductEntity } from './product.entity';
 import { Pagination } from 'nestjs-typeorm-paginate';
-import { paramsValid } from './params.valid';
+import { ParamsPattern } from './params.pattern';
 
 @Controller('product')
 export class ProductController {
@@ -28,9 +28,8 @@ export class ProductController {
        return this.productService.withCategories(categories)
     }
     @Get(':pattern') //http://localhost:3001/product/a [pattern]
-    filterByName(@Param() params: paramsValid): Promise<ProductDto[]>{
+    filterByName(@Param() params: ParamsPattern): Promise<ProductDto[]>{
         return this.productService.filterByName(params.pattern);
     }
-
 }
 
