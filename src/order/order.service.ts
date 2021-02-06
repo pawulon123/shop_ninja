@@ -10,7 +10,7 @@ export class OrderService {
     getAll(): Promise<OrderDto[]> {
         return this.query.getOrders();
     }
-    addOne(body): Promise<any> {
+    addOne(body): Promise<number> {
         return this.query.addOne(body);
     }
 }

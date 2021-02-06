@@ -9,13 +9,13 @@ export class OrderController {
     
     constructor(public readonly orderService: OrderService) {}
     
-    @SetMetadata('roles', ['client'])
+    @SetMetadata('roles', ['admin'])
     @Get() getAll(): Promise<OrderDto[]>{ 
         return this.orderService.getAll()
     }
     @SetMetadata('roles', ['client', 'admin'])
     @Post()
-    create(@Body() body: OrderDto): Promise<OrderDto>{ 
+    create(@Body() body: OrderDto): Promise<number>{ 
         return this.orderService.addOne(body);
     }
 }
