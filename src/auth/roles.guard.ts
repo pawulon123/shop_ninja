@@ -17,7 +17,7 @@ export class RolesGuard implements CanActivate {
         if (payload) {
             if(!('role' in payload))return;
             const roles = this.reflector.get<string[]>('roles', context.getHandler());
-            return roles.includes(payload['role']);
+            return Array.isArray(roles) ? roles.includes(payload['role']): false;
         }
         return;
     }

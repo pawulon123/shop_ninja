@@ -7,7 +7,10 @@ export class OrderService {
     constructor(
         private readonly query: Quiries,
        ){}
-    getAll():Promise<OrderDto[]>{
+    getAll(): Promise<OrderDto[]> {
         return this.query.getOrders();
+    }
+    addOne(body): Promise<any> {
+        return this.query.addOne(body);
     }
 }

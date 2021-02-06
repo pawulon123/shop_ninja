@@ -25,7 +25,7 @@ export class ProductController {
     getAllWithCategoryies(
         @Query('categories', ParseArrayPipe) categories: string[]
     ): Promise<ProductDto[]>{
-       return this.productService.withCategories(categories)
+        return this.productService.withCategories(categories)
     }
     @Get(':pattern') //http://localhost:3001/product/a [pattern]
     filterByName(@Param() params: ParamsPattern): Promise<ProductDto[]>{

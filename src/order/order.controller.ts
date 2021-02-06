@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, SetMetadata } from '@nestjs/common';
+import { Controller, Get, UseGuards, SetMetadata, Body, Post } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderDto } from './order-dto';
 import { RolesGuard } from '../auth/roles.guard';
@@ -10,7 +10,12 @@ export class OrderController {
     constructor(public readonly orderService: OrderService) {}
     
     @SetMetadata('roles', ['client'])
-    @Get() getAll() :Promise<OrderDto[]>{ 
+    @Get() getAll(): Promise<OrderDto[]>{ 
         return this.orderService.getAll()
+    }
+    @SetMetadata('roles', ['client', 'admin'])
+    @Post()
+    create(@Body() body: OrderDto): Promise<OrderDto>{ 
+        return this.orderService.addOne(body);
     }
 }
