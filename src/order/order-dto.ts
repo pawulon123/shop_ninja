@@ -26,7 +26,4 @@ export class OrderDto {
         @IsOptional()
         @Length(3,20)
     status: string;
-        
-   
-   
 }

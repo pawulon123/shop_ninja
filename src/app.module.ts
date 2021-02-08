@@ -1,6 +1,5 @@
 import { APP_FILTER } from '@nestjs/core';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import configDb from './config.db';
@@ -36,7 +35,6 @@ import { UserModule } from './user/user.module';
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
     },
-    AppService,
   ],
 })
 export class AppModule {}
