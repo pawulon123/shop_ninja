@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsInt, IsOptional, IsPositive, Length, MaxLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsInt, IsOptional, IsPositive, Length, MaxLength, IsUrl } from 'class-validator';
 
 export class ProductDto {
 
@@ -16,9 +16,11 @@ category_id: number;
     @IsNotEmpty()
     @Length(3, 60)    
 name: string;
-
+    
+    @IsOptional()
     @IsNotEmpty()
-    @Length(6, 255)
+    @MaxLength(255)
+    @IsUrl()
 images_url: string;
     
     @IsNotEmpty()
@@ -26,6 +28,7 @@ images_url: string;
     @IsInt()
 price: number;
     
+    @IsOptional()
     @MaxLength(500)
 description: string;
 }

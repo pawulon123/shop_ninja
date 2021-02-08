@@ -21,6 +21,7 @@ export class UserDto {
         @Length(6, 60)
     password: string;
         
+        @IsOptional()
         @MaxLength(100)
     adress: string;
 }

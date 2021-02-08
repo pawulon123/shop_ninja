@@ -10,13 +10,13 @@ export class OrderEntity {
         @PrimaryGeneratedColumn()
     id: number;
     
-        @Column({type: 'integer', unsigned: true, nullable: true })
+        @Column({type: 'integer', unsigned: true })
     id_user: number;
  
-        @Column({type: 'integer', unsigned: true, nullable: true })
+        @Column({type: 'integer', unsigned: true })
     total_cost: number;
         
-          @Column({type: 'varchar' })
+          @Column({type: 'varchar', default: 'pending' })
     status: string;
     
     @ManyToOne(() => User, user => user.orders)

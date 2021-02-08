@@ -14,7 +14,6 @@ export class OrderDto {
     id_user: number;
         
         @IsOptional()
-        @IsNotEmpty()
         @IsPositive()
         @IsInt()
     total_cost: number;

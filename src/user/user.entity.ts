@@ -8,16 +8,16 @@ export class UserEntity {
         @PrimaryGeneratedColumn()
     id: number;
     
-        @Column({type: 'integer', unsigned: true, nullable: true })
+        @Column({type: 'integer', unsigned: true })
     id_role: number;
     
-        @Column({type: 'varchar',length: 254, unique: true, nullable: true })
+        @Column({type: 'varchar',length: 254, unique: true })
     mail: string;
     
-        @Column({type: 'char', unsigned: true, length: 60, nullable: true})
+        @Column({type: 'char', unsigned: true, length: 60})
     password: string;
         
-        @Column({type: 'varchar',  length: 100})
+        @Column({type: 'varchar',  length: 100, nullable: true })
     adress: string;
 
     @OneToMany(() => Order, order => order.user)

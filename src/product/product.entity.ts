@@ -4,13 +4,14 @@ import { OrderEntity as Order } from '../order/order.entity';
 
 @Entity('products')
 export class ProductEntity {
+    
     @PrimaryGeneratedColumn()
     id: number;
     
-        @Column({type: 'integer', unsigned: true, nullable: false })
+        @Column({type: 'integer', unsigned: true})
     category_id: number;
     
-        @Column({type: 'varchar',length: 100, nullable: true })
+        @Column({type: 'varchar',length: 60 })
     name: string;
     
         @Column({type: 'varchar', length: 255, nullable: true})
