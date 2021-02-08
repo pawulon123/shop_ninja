@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import  configDb  from './config.db';
 import { ConfigModule } from '@nestjs/config';
+import { HttpExceptionFilter } from './http-exception.filter';
 import { Module } from '@nestjs/common';
 import { MailModule } from './mailer/mailer.module';
 import { OrderModule } from './order/order.module';
@@ -33,6 +34,10 @@ import { UserModule } from './user/user.module';
     AppController
   ],
   providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
     AppService,
   ],
 })
