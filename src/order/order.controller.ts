@@ -6,16 +6,15 @@ import { RolesGuard } from '../auth/roles.guard';
 @Controller('order')
 @UseGuards(RolesGuard)
 export class OrderController {
-    
     constructor(public readonly orderService: OrderService) {}
     
     @SetMetadata('roles', ['admin'])
     @Get() getAll(): Promise<OrderDto[]>{ 
-        return this.orderService.getAll()
+        return this.orderService.getAll();
     }
     @SetMetadata('roles', ['client', 'admin'])
     @Post()
-    create(@Body() body: OrderDto): Promise<number>{ 
+    create(@Body() body: OrderDto): Promise<number> { 
         return this.orderService.addOne(body);
     }
 }

@@ -2,14 +2,19 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColum
 import { UserEntity as User }from "../user/user.entity";
 import { ProductEntity as Product }from "../product/product.entity";
 import { Optional } from "@nestjs/common";
+
 @Entity('orders')
 export class OrderEntity {
+
         @Optional()
         @PrimaryGeneratedColumn()
     id: number;
     
         @Column({type: 'integer', unsigned: true, nullable: true })
     id_user: number;
+ 
+        @Column({type: 'integer', unsigned: true, nullable: true })
+    total_cost: number;
         
           @Column({type: 'varchar' })
     status: string;

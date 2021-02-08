@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { getConnection, Like, getRepository } from 'typeorm';
 import { CategoryEntity } from '../category/category.entity';
 import { ProductEntity } from '../product/product.entity';
+import { UserEntity } from '../user/user.entity';
+import { OrderDto } from '../order/order-dto';
 
 @Injectable()
 export class Query {
@@ -38,21 +40,31 @@ export class Query {
             .leftJoinAndSelect("order.products", "product")
             .getMany();
     }
-    async addOne(order): Promise<any> {
-        // there must be a fix !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
-            const answer= await getConnection()            
-            .createQueryBuilder()
-            .relation(OrderEntity, "products")
-            .insert()
-            .into(OrderEntity)
-            .values(order)
-            .execute();
-            const idOrder =answer['identifiers'][0].id
-            order.products.forEach(idProduct => {
-            getConnection().query(`INSERT INTO orders_products (products, orders ) VALUES (${idProduct},${idOrder})`)});
-            return idOrder;
-        }
-        
-    
+    async addOrder(order: OrderDto): Promise<OrderEntity> { 
+        return await getConnection().getRepository(OrderEntity).save(order)
+    }
+    async getProducts(order: OrderDto): Promise<ProductEntity[]> {
+        const productsIds = order.products.map(product => product.id);
+        return await getConnection()
+            .getRepository(ProductEntity)
+            .createQueryBuilder("product")
+            .where("product.id IN (:...ids)", { ids: productsIds })
+            .getMany();
+    }
+    async userOrder(order: OrderEntity): Promise<any> {
+        return  await getConnection()
+            .getRepository(OrderEntity)
+            .createQueryBuilder("order")
+            .leftJoinAndSelect("order.user", "user")
+            .leftJoinAndSelect("order.products", "product")
+            .where('order.id = :id', { id: order.id })
+            .getOne();
+    }
+    async user(id: number): Promise<any> {
+        return  await getConnection() .getRepository(UserEntity).findOneOrFail(id)
+    }
+
+
+
 
 }
