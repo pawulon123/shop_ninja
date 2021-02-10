@@ -10,10 +10,10 @@ import { MailModule } from './mailer/mailer.module';
 import { OrderModule } from './order/order.module';
 import { ProductModule } from './product/product.module';
 import { RoleModule } from './role/role.module';
+import { ScheduleModule } from '@nestjs/schedule';
 import { SharedModule } from './shared/shared.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -25,7 +25,8 @@ import { UserModule } from './user/user.module';
     UserModule,
     AuthModule,
     SharedModule,
-    MailModule
+    MailModule,
+    ScheduleModule.forRoot()
   ],
   controllers: [
     AppController

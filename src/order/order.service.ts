@@ -11,7 +11,9 @@ export class OrderService {
     constructor(
         private readonly query: Quiries,
         private readonly mailService: MailService,
-    ) {}
+    ) {
+       
+    }
     getAll(): Promise<OrderDto[]> {
         return this.query.getOrders();
     }
@@ -37,5 +39,9 @@ export class OrderService {
             order.total_cost  =  ProductsCost;
         }
        
+    }
+
+    async statistic(): Promise<any> {
+        return this.query.getOrders();
     }
 }

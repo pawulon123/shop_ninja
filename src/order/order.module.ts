@@ -8,7 +8,6 @@ import { Query } from '../shared/query';
 import { AuthModule } from '../auth/auth.module';
 import { MailModule } from '../mailer/mailer.module';
 
-
 @Module({
   imports:[
     TypeOrmModule.forFeature([OrderEntity]),
