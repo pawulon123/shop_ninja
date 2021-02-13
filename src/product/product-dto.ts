@@ -28,4 +28,14 @@ price: number;
     
     @MaxLength(500)
 description: string;
+
+    @IsOptional()
+    @IsPositive()
+    @IsInt()
+amount?: number;
+
+    @IsOptional()
+    @IsPositive()
+    @IsInt()
+inTotal?: number;
 }

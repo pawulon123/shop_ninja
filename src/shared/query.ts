@@ -43,8 +43,8 @@ export class Query {
     async addOrder(order: OrderDto): Promise<OrderEntity> { 
         return await getConnection().getRepository(OrderEntity).save(order)
     }
-    async getProducts(order: OrderDto): Promise<ProductEntity[]> {
-        const productsIds = order.products.map(product => product.id);
+    async getProducts(productsIds): Promise<ProductEntity[]> {
+        // const productsIds = order.products.map(product => product.id);
         return await getConnection()
             .getRepository(ProductEntity)
             .createQueryBuilder("product")

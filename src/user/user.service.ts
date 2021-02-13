@@ -16,7 +16,9 @@ export class UserService {
     }
      findOne(mail: string): Promise<UserDto> {
         return this.userRepository.findOneOrFail({mail}, { relations: ["role"] });
-        // return this.query.findUser({mail});
+    }
+    findOneById(id: number): Promise<UserDto> {
+        return this.userRepository.findOneOrFail({id}, { relations: ["role"] });
     }
     async create(userData: UserDto): Promise<UserDto> {
         const salt = await bcrypt.genSalt(10);
