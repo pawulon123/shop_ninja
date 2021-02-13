@@ -9,7 +9,8 @@ export class OrderController {
     constructor(public readonly orderService: OrderService) {}
     
     @SetMetadata('roles', ['admin'])
-    @Get() getAll(): Promise<OrderDto[]>{ 
+    @Get()
+    getAll(): Promise<OrderDto[]>{ 
         return this.orderService.getAll();
     }
     @SetMetadata('roles', ['client', 'admin'])
