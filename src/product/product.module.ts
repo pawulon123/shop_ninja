@@ -10,6 +10,7 @@ import { Query } from './../shared/query';
     TypeOrmModule.forFeature([ProductEntity]),
 
   ],
+  exports:[ProductService],
   controllers: [ProductController],
   providers: [
     ProductService,

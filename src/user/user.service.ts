@@ -11,11 +11,13 @@ export class UserService {
     constructor(
         @InjectRepository(UserEntity)
         private userRepository: Repository<UserEntity>
-    ){
+    ) {}
+    findOne(mail: string): Promise<UserDto> {
+        return this.userRepository.findOneOrFail({ mail }, { relations: ["role"] });
     }
-     findOne(mail: string): Promise<UserDto> {
-        return this.userRepository.findOneOrFail({mail}, { relations: ["role"] });
-     }
+    findOneById(id: number): Promise<UserDto> {
+        return this.userRepository.findOneOrFail({ id }, { relations: ["role"] });
+    }
     async create(userData: UserDto): Promise<UserDto> {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(userData.password, salt);
