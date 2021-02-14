@@ -22,6 +22,9 @@ export class ProductEntity {
         
         @Column({type: 'varchar', length: 500})
     description: string;
+        
+        @Column({type: 'integer', unsigned: true})
+    sales_counter: number;
     
     @ManyToOne(() => Category, category => category.products)
         @JoinColumn({ name: 'category_id' })
