@@ -1,6 +1,8 @@
-import {  IsNotEmpty, IsInt, IsOptional, IsPositive, ArrayNotEmpty, Length } from 'class-validator';
+import { IsNotEmpty, IsInt, IsOptional, IsPositive, ArrayNotEmpty, Length, MaxLength, IsString, ValidateNested, ArrayUnique } from 'class-validator';
+import { OrderReqDto } from './order.req-dto';
+import { Type } from 'class-transformer';
 
-export class OrderDto {
+export    class OrderDto {
 
         @IsOptional()
         @IsNotEmpty()
@@ -20,9 +22,13 @@ export class OrderDto {
         
         @IsOptional()
         @ArrayNotEmpty()
-    products: any;
+        @ValidateNested({ each: true })
+        @Type(() => OrderReqDto)
+        @ArrayUnique(OrderReqDto => OrderReqDto.id)
+    products: OrderReqDto[];
         
         @IsOptional()
         @Length(3,20)
     status: string;
+    
 }
