@@ -40,16 +40,26 @@ export class Query {
             .leftJoinAndSelect("order.products", "product")
             .getMany();
     }
-    async addOrder(order: OrderDto): Promise<OrderEntity> { 
-        return await getConnection().getRepository(OrderEntity).save(order)
+    async addOrder(order: ProductEntity): Promise<ProductEntity> { 
+        return await getConnection().getRepository(OrderEntity).save(order);
     }
-    async getProducts(productsIds): Promise<ProductEntity[]> {
+    async getProducts(productsIds): Promise<any> {
         // const productsIds = order.products.map(product => product.id);
-        return await getConnection()
-            .getRepository(ProductEntity)
-            .createQueryBuilder("product")
-            .where("product.id IN (:...ids)", { ids: productsIds })
-            .getMany();
+        const inSql =  await getConnection()
+                .getRepository(ProductEntity)
+                .createQueryBuilder("product")
+                .where("product.id IN (:...ids)", { ids: productsIds })
+               
+
+        return {
+            getMany: async ()=>inSql.getMany(),
+            inSql
+                  
+    
+           
+            
+        }
+      
     }
     async userOrder(order: OrderEntity): Promise<any> {
         return  await getConnection()

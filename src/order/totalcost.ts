@@ -15,6 +15,7 @@ export class TotalCost {
     ) { }
     async productsAndRessult(order: OrderDto, ...keys: string[]):Promise<OrderDto> | null {
         await this.caller(this.productService.countProductsCost.bind(this.productService, order.products), 'productCost');
+        // await this.caller(this.productService.countProductsCost.bind(this.productService, order.products), 'productCost');
         return keys.length ? this.assignResult(order, keys) : null
     }
     async setDiscount(): Promise<void> {

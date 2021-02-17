@@ -16,8 +16,8 @@ export class OrderService {
         return this.query.getOrders();
     }
     async addOne(order: OrderDto): Promise<number> {
-        const orderWithCosts: OrderDto = await this.totalCost.productsAndRessult(order, 'total_cost', 'discount');
-        const orderSaved: OrderDto = await this.query.addOrder(orderWithCosts);
+        const orderWithCosts:any = await this.totalCost.productsAndRessult(order, 'total_cost');
+        const orderSaved:any = await this.query.addOrder(orderWithCosts);
         this.mailService.sendClientConfirmation(orderSaved);
         return orderSaved.id;
     }
