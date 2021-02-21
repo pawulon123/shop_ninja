@@ -29,9 +29,10 @@ export class ProductService {
         return this.productRepository.findOneOrFail(id);
     }
     async countProductsCost(products: any[]): Promise<number> {
+            
         const ids: number[] = products.map(product => product.id);
-        const prod = await this.query.getProducts(ids).then(prod => prod.getMany());
-        return this.countCost(products, prod);
+        const prod: ProductDto[] = await this.query.getProducts(ids);
+        return this.countCost(products, prod)
     }
     private countCost(productsReq: any[], products: ProductDto[]): number {
         return productsReq.reduce((number, product) => {

@@ -5,6 +5,7 @@ import { CategoryEntity } from '../category/category.entity';
 import { ProductEntity } from '../product/product.entity';
 import { UserEntity } from '../user/user.entity';
 import { OrderDto } from '../order/order-dto';
+// import { Product } from '../order/order-dto';
 
 @Injectable()
 export class Query {
@@ -40,29 +41,30 @@ export class Query {
             .leftJoinAndSelect("order.products", "product")
             .getMany();
     }
-    async addOrder(order: ProductEntity): Promise<ProductEntity> { 
-        return await getConnection().getRepository(OrderEntity).save(order);
+    async addOrder(order: OrderDto): Promise<OrderDto> {
+        const connect = getConnection()
+        const savedOrder = await connect.getRepository(OrderEntity).save(order);
+        // need to improve
+        await this.updateorders_products(savedOrder, connect);
+        return savedOrder;
     }
-    async getProducts(productsIds): Promise<any> {
-        // const productsIds = order.products.map(product => product.id);
-        const inSql =  await getConnection()
-                .getRepository(ProductEntity)
-                .createQueryBuilder("product")
-                .where("product.id IN (:...ids)", { ids: productsIds })
-               
-
-        return {
-            getMany: async ()=>inSql.getMany(),
-            inSql
-                  
-    
-           
-            
-        }
-      
+    async updateorders_products(savedOrder: OrderDto, connect) {
+        const objectsUpdated = savedOrder.products.map(async product => {
+            const amount = 'amount' in product ? product    ['amount'] : 1
+            await connect.query(`UPDATE orders_products SET amount=${amount} WHERE orders=${savedOrder.id} AND products=${product.id}`)
+        })
+        // connect.close() /*?*/
+        return objectsUpdated;
+    }
+    async getProducts(productsIds): Promise<ProductEntity[]> {
+        return await getConnection()
+            .getRepository(ProductEntity)
+            .createQueryBuilder("product")
+            .where("product.id IN (:...ids)", { ids: productsIds })
+            .getMany();
     }
     async userOrder(order: OrderEntity): Promise<any> {
-        return  await getConnection()
+        return await getConnection()
             .getRepository(OrderEntity)
             .createQueryBuilder("order")
             .leftJoinAndSelect("order.user", "user")
@@ -71,10 +73,6 @@ export class Query {
             .getOne();
     }
     async user(id: number): Promise<any> {
-        return  await getConnection() .getRepository(UserEntity).findOneOrFail(id)
+        return await getConnection().getRepository(UserEntity).findOneOrFail(id)
     }
-
-
-
-
 }

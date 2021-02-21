@@ -31,4 +31,7 @@ export    class OrderDto {
         @Length(3,20)
     status: string;
     
+        @IsOptional()
+        @IsInt()
+    discount?: number;
 }

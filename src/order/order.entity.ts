@@ -16,7 +16,7 @@ export class OrderEntity {
         @Column({type: 'integer', unsigned: true })
     total_cost: number;
         
-          @Column({type: 'varchar', default: 'pending' })
+        @Column({type: 'varchar', default: 'pending' })
     status: string;
     
     @ManyToOne(() => User, user => user.orders)
@@ -27,15 +27,15 @@ export class OrderEntity {
         cascade: true
     })
         @JoinTable({
-        name: "orders_products",
-        joinColumn: {
-            name: "orders",
-            referencedColumnName: "id"  
-        },
-        inverseJoinColumn: {    
-            name: "products",
-            referencedColumnName: "id"
-        }
+            name: "orders_products",
+            joinColumn: {
+                name: "orders",
+                referencedColumnName: "id"  
+            },
+            inverseJoinColumn: {    
+                name: "products",
+                referencedColumnName: "id"
+            }
         })
         products: Product[];
 }

@@ -14,31 +14,30 @@ export class TotalCost {
         private readonly productService: ProductService
     ) { }
     async productsAndRessult(order: OrderDto, ...keys: string[]):Promise<OrderDto> | null {
-        await this.caller(this.productService.countProductsCost.bind(this.productService, order.products), 'productCost');
-        // await this.caller(this.productService.countProductsCost.bind(this.productService, order.products), 'productCost');
-        return keys.length ? this.assignResult(order, keys) : null
+        await this.caller(this.productService.countProductsCost.bind( this.productService, order.products), 'productsCost')
+        return keys.length ? this.assignResult(order, keys) : null ;
     }
     async setDiscount(): Promise<void> {
         await this.caller(discount => 0, 'discount');
     }
-    private assignResult(obj: OrderDto, keys: string[]): OrderDto {
-        return keys.reduce((obj, key) => {
-            obj[key] = this.state[key];
+    private assignResult(obj, keys: string[]): OrderDto {
+        return keys.reduce((obj, key)  =>  {
+            obj[key] = this.state[key]
             return obj
         }, obj);
     }
-    private async caller(methodService, keyState: string, assignResultToObj: OrderDto|null = null): Promise<void> {
+    private async caller(methodService, keyState: string): Promise<void> {
         this.state[keyState] = await methodService();
         this.count();
     }
-    private count():void {
+    private  count(): void {
         const { productsCost, discount } = this.state;
         this.state.total_cost = productsCost - discount;
         if (this.state.total_cost >= this.maxPurchase) {
             throw new HttpException('The order is too big. Contact the shop owner ', HttpStatus.BAD_REQUEST);
         }
     }
-    get currentState() {
+    async  currentState() {
         return this.state;
     }
 }
