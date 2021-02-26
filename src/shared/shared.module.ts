@@ -1,11 +1,8 @@
+import { ScheduleModule } from '@nestjs/schedule';
 import { Module } from '@nestjs/common';
 
 @Module({
-    imports:[
-     
-    ],
-    exports:[
-       
-    ]
+    imports:[],
+    exports:[]
 })
 export class SharedModule {}

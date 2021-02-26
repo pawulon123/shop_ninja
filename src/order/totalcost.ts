@@ -12,9 +12,9 @@ export class TotalCost {
     }
     constructor(
         private readonly productService: ProductService
-    ) { }
+    ) {}
     async productsAndRessult(order: OrderDto, ...keys: string[]):Promise<OrderDto> | null {
-        await this.caller(this.productService.countProductsCost.bind( this.productService, order.products), 'productsCost')
+        await this.caller(this.productService.countProductsCost.bind( this.productService, order.products), 'productsCost');
         return keys.length ? this.assignResult(order, keys) : null ;
     }
     async setDiscount(): Promise<void> {
@@ -37,7 +37,7 @@ export class TotalCost {
             throw new HttpException('The order is too big. Contact the shop owner ', HttpStatus.BAD_REQUEST);
         }
     }
-    async  currentState() {
+    get currentState() {
         return this.state;
     }
 }

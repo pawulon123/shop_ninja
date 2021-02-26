@@ -5,7 +5,8 @@ import { CategoryEntity } from '../category/category.entity';
 import { ProductEntity } from '../product/product.entity';
 import { UserEntity } from '../user/user.entity';
 import { OrderDto } from '../order/order-dto';
-// import { Product } from '../order/order-dto';
+import { ProductOrderEntity } from '../product-order/product-order.entity';
+
 
 @Injectable()
 export class Query {
@@ -50,7 +51,7 @@ export class Query {
     }
     async updateorders_products(savedOrder: OrderDto, connect) {
         const objectsUpdated = savedOrder.products.map(async product => {
-            const amount = 'amount' in product ? product    ['amount'] : 1
+            const amount = 'amount' in product ? product['amount'] : 1
             await connect.query(`UPDATE orders_products SET amount=${amount} WHERE orders=${savedOrder.id} AND products=${product.id}`)
         })
         // connect.close() /*?*/
@@ -74,5 +75,19 @@ export class Query {
     }
     async user(id: number): Promise<any> {
         return await getConnection().getRepository(UserEntity).findOneOrFail(id)
+    }
+    async productsHightAmount(from: string, to: string): Promise<ProductEntity[]> {
+        return await getConnection().query(
+            `
+            SELECT products.* , 
+            SUM (amount) AS frequentlyProduct
+            FROM orders_products 
+            INNER JOIN products ON orders_products.products=products.id  
+            WHERE created_at BETWEEN "${from}" AND "${to}"
+            GROUP BY products
+            ORDER BY frequentlyProduct DESC
+            LIMIT 1
+            `
+       )
     }
 }
